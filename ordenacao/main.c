@@ -17,6 +17,25 @@ void selectionSort(int v[], int tamanho){
     }
 }
 
+void boubleSort(int v[], int tamanho){
+    int i,j,temp, trocou;
+    do{
+        trocou = 0;
+
+        for(i = 0; i < tamanho-1; i++){
+            if (v[i] > v[i+1]){
+                temp = v[i];
+                v[i] = v[i+1];
+                v[i+1] = temp;
+
+                trocou = 1;
+            }
+        }
+        tamanho--;
+
+    }while (trocou == 1);
+}
+
 
 
 
@@ -33,7 +52,8 @@ int main()
         printf("%d ", v[i]);
     }
 
-    selectionSort(v, tamanho);
+    //selectionSort(v, tamanho);
+    boubleSort(v, tamanho);
 
     printf("\nVetor depois: ");
     for (int i = 0; i < tamanho; i++) {
