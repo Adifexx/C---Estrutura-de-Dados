@@ -2,18 +2,23 @@
 #include <stdlib.h>
 
 
-void selectionSort(int v[], int tamanho){
-    for(int i = 0; i < tamanho; i++){
+void selectionSort(int v[], int tamanho) {
+    for (int i = 0; i < tamanho - 1; i++) {
         int menor = i;
-        for(int j = i+1; j < tamanho; j++){
-            if(v[j] < v[menor]){
+
+        // Procura a posição do menor valor
+        for (int j = i + 1; j < tamanho; j++) {
+            if (v[j] < v[menor]) {
                 menor = j;
             }
         }
-        int temp = v[i]; //v[i](v[0]) = 5, passa a ser guardado no temp
-        v[i] = v[menor]; //v[i] passa a ser igual a v[menor](v[3] = 1) ENTENDER DEPOIS
-        v[menor] = temp; //v[menor](v[3]) passa a ser igual a 5(v[3] = 5)
 
+        // Verifica se o menor valor está em outra posição
+        if (menor != i) {
+            int temp = v[i];  // Guarda o valor atual
+            v[i] = v[menor];  // Coloca o menor valor na posição atual
+            v[menor] = temp;  // Coloca o valor antigo na posição do menor
+        }
     }
 }
 
