@@ -22,7 +22,7 @@ void boubleSort(int v[], int tamanho){
     do{
         trocou = 0;
 
-        for(i = 0; i < tamanho-1; i++){
+        for(i = 0; i < tamanho-1; i++){ // 1 passagem = 1 for completo
             if (v[i] > v[i+1]){
                 temp = v[i];
                 v[i] = v[i+1];
@@ -34,6 +34,18 @@ void boubleSort(int v[], int tamanho){
         tamanho--;
 
     }while (trocou == 1);
+}
+
+void insertionSort(int v[], int tamanho){
+    int i, j, temp;
+
+    for(i = 0; i < tamanho; i++){
+        temp = v[i];
+        for(j=i; (j>0) && (temp<v[j-1]); j--){ //j-- é a chave
+            v[j] = v[j-1];
+        }
+        v[j] = temp;
+    }
 }
 
 
@@ -54,6 +66,7 @@ int main()
 
     //selectionSort(v, tamanho);
     boubleSort(v, tamanho);
+    //insertionSort(v, tamanho);
 
     printf("\nVetor depois: ");
     for (int i = 0; i < tamanho; i++) {
