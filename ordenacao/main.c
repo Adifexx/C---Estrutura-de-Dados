@@ -54,15 +54,59 @@ void insertionSort(int v[], int tamanho){
 }
 
 
+void merge(int *v, int inicio, int meio, int fim){
+    int *temp, i, j, k, tamanho, p1, p2, fim1= 0, fim2=0;
+    tamanho = fim-inicio+1;
+    p1 = inicio;
+    p2 = meio+1;
+    temp = (int *) malloc(tamanho*(sizeof(int)));
+    if(temp!=NULL){
+     for(i=0;i<tamanho;i++){
+        if(!fim1 && !fim2){//se ninguem terminou
+            if(v[p1]<v[p2]){//verifica quem vai copiar
+                temp[i] = v[p1];
+                p1++;
+            }else{
+                temp[i] = v[p2++];//igual a de cima
+            }
+            if(p1>meio){ fim1= 1;}
+            if(p2>fim) {fim2 = 1;}
+
+        }else{//se alguem terminou
+            if(!fim1){ temp[i] = v[p1++]; }
+            else{ temp[i] = v[p2++]; }
+        }
+     }
+     for(j=0,k= inicio; j<tamanho; j++,k++){
+        v[k] = temp[j];
+     }
+
+    }
+    free(temp);
+
+}
+
+
+void mergeSort(int *v, int inicio, int fim){
+    int meio;
+    if(inicio<fim){
+        meio = ((inicio+fim)/2);
+        mergeSort(v, inicio, meio);
+        mergeSort(v, meio+1, fim);
+        merge(v, inicio, meio, fim);
+    }
+}
+
+
 
 
 
 int main()
 {
-    int v[] = {5, 3, 8, 1, 2};
+    int v[] = {5, 3, 81, 1, 20, 80, -30, 67, 10, 76};
 
-    int tamanho = 5;
-    //int tamanho = sizeof(v) / sizeof(v[0]);
+    //int tamanho = 5;
+    int tamanho = sizeof(v) / sizeof(v[0]);
 
     printf("Vetor antes: ");
     for (int i = 0; i < tamanho; i++) {
@@ -70,8 +114,9 @@ int main()
     }
 
     //selectionSort(v, tamanho);
-    boubleSort(v, tamanho);
+    //boubleSort(v, tamanho);
     //insertionSort(v, tamanho);
+    mergeSort(v,0,9);
 
     printf("\nVetor depois: ");
     for (int i = 0; i < tamanho; i++) {
