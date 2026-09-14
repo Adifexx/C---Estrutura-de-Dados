@@ -91,11 +91,44 @@ void mergeSort(int *v, int inicio, int fim){
     int meio;
     if(inicio<fim){
         meio = ((inicio+fim)/2);
-        mergeSort(v, inicio, meio);
-        mergeSort(v, meio+1, fim);
+        mergeSort(v, inicio, meio); //esquerda - meio
+        mergeSort(v, meio+1, fim); //meio - direita
         merge(v, inicio, meio, fim);
     }
 }
+
+
+void quickSort(int *v, int inicio, int fim){
+    int pivo;
+    if (fim > inicio){
+        pivo = particiona(v, inicio, fim); // pivo é o indice do numero
+        quickSort(v, inicio, pivo-1);
+        quickSort(v, pivo+1, fim);
+    }
+}
+
+
+int particiona(int *v, int inicio,int fim){
+    int pivo, esq, dir, tamanho, temp;
+
+    pivo = inicio;
+    esq = pivo+1;
+    dir = fim;
+    tamanho = fim-inicio+1;
+
+    while(esq < dir){
+        for(esq; esq>tamanho; esq++){
+            if(v[esq]<= v[pivo]){
+                temp = v[esq];
+                v[esq] = v[pivo];
+                v[pivo]=temp;
+            }
+        }
+    }
+}
+
+
+
 
 
 
@@ -105,7 +138,7 @@ int main()
 {
     int v[] = {5, 3, 81, 1, 20, 80, -30, 67, 10, 76};
 
-    //int tamanho = 5;
+    //int tamanho = 10;
     int tamanho = sizeof(v) / sizeof(v[0]);
 
     printf("Vetor antes: ");
