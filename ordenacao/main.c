@@ -98,6 +98,34 @@ void mergeSort(int *v, int inicio, int fim){
 }
 
 
+
+int particiona(int *v, int inicio,int fim){
+    int pivo, esq, dir, temp;
+
+    pivo = v[inicio];
+    esq = inicio;
+    dir = fim;
+
+    while(esq < dir){
+        while (v[esq] <= pivo && esq <= fim){
+            esq++;
+        }
+        while (v[dir] > pivo && dir >= 0){
+            dir--;
+        }
+        if(esq < dir){
+                temp = v[esq];
+                v[esq] = v[dir];
+                v[dir]=temp;
+        }
+
+            }
+            v[inicio] = v[dir];
+            v[dir] = pivo;
+            return dir;
+}
+
+
 void quickSort(int *v, int inicio, int fim){
     int pivo;
     if (fim > inicio){
@@ -106,30 +134,6 @@ void quickSort(int *v, int inicio, int fim){
         quickSort(v, pivo+1, fim);
     }
 }
-
-
-int particiona(int *v, int inicio,int fim){
-    int pivo, esq, dir, tamanho, temp;
-
-    pivo = inicio;
-    esq = pivo+1;
-    dir = fim;
-    tamanho = fim-inicio+1;
-
-    while(esq < dir){
-        for(esq; esq>tamanho; esq++){
-            if(v[esq]<= v[pivo]){
-                temp = v[esq];
-                v[esq] = v[pivo];
-                v[pivo]=temp;
-            }
-        }
-    }
-}
-
-
-
-
 
 
 
@@ -149,7 +153,8 @@ int main()
     //selectionSort(v, tamanho);
     //boubleSort(v, tamanho);
     //insertionSort(v, tamanho);
-    mergeSort(v,0,9);
+    //mergeSort(v,0,9);
+    quickSort(v,0,9);
 
     printf("\nVetor depois: ");
     for (int i = 0; i < tamanho; i++) {
