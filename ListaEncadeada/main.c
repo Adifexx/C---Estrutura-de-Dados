@@ -235,7 +235,7 @@ int main()
     remove_lista_valor(lst,3);
     imprimir_lista(lst);
 
-
+    
     apagar_toda_lista(lst);
     //imprimir_lista(lst);
 
