@@ -168,6 +168,33 @@ int remove_lista_posicao(Lista *lista, int posicao) {
     return 1;                           // Remoção realizada.
 }
 
+int remove_lista_valor(Lista *lista, int y) {
+    if (lista == NULL || *lista == NULL) {
+        return 0; // A lista não existe ou está vazia.
+    }
+
+    cel *ant = NULL;   // Guarda a célula anterior.
+    cel *aux = *lista; // Começa na primeira célula.
+
+    while (aux != NULL && aux->conteudo != y) {
+        ant = aux;      // Guarda a célula atual como anterior.
+        aux = aux->seg; // Avança para a próxima.
+    }
+
+    if (aux == NULL) {
+        return 0; // Chegou ao fim sem encontrar y.
+    }
+
+    if (ant == NULL) {
+        *lista = aux->seg; // Remove a primeira: o início passa à próxima.
+    } else {
+        ant->seg = aux->seg; // Liga a anterior à seguinte, pulando aux.
+    }
+
+    free(aux); // Libera a célula que contém y.
+    return 1;  // Remoção realizada.
+}
+
 void apagar_toda_lista(Lista *lista){
      if (lista == NULL) return; // Proteção: evita travar o programa se a lista não existir
 
@@ -204,6 +231,8 @@ int main()
     remove_lista_inicio(lst);
     imprimir_lista(lst);
     remove_lista_posicao(lst, 1);
+    imprimir_lista(lst);
+    remove_lista_valor(lst,3);
     imprimir_lista(lst);
 
 
