@@ -63,6 +63,7 @@ int pop(Pilha *pilha){
     *pilha = (*pilha)->seg;
     free(aux);
 
+    return 1;
 }
 
 
