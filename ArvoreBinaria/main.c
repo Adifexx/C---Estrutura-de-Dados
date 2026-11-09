@@ -9,10 +9,10 @@ typedef struct NO{
 
 typedef struct NO* ArvBin;
 
-ArvBin* criaArvBim(){
+ArvBin* cria_ArvBin(){
     ArvBin *raiz = (ArvBin*)malloc(sizeof(ArvBin));
 
-    if(raiz != NULL){//se a raiz existir
+    if(raiz != NULL){//se a arvore existir
         *raiz = NULL;
     }
     return raiz;
@@ -60,29 +60,108 @@ int insere_ArvBin(ArvBin *raiz, int valor){
     return 1;
 }
 
-void preOrdem_ArvBin(ArvBin *raiz){
-    if(raiz == NULL){
+void preOrdem_arvBin(ArvBin *raiz){
+    if(raiz == NULL){//se a arvore nao existir
         return;
     }
     if(*raiz != NULL){//quando a raiz nao tiver nem esquerda nem direita, ele volta sozinho pro NO anterior
         printf("%d\t", (*raiz)->info);
-        preOrdem_ArvBin(&((*raiz)->esq));
-        preOrdem_ArvBin(&((*raiz)->dir));
+        preOrdem_arvBin(&((*raiz)->esq));
+        preOrdem_arvBin(&((*raiz)->dir));
 
 
     }
 }
 
-int main()
-{
-    printf("Inicio\n");
-    ArvBin *raiz = criaArvBim();
-    int N = 10, dados[10] = {28,16,40,11,21,36,48,19,32,56};
+void emOrdem_arvBin(ArvBin *raiz){
+  if(raiz==NULL){
+      return;
+  }
+  if(*raiz!=NULL){
+    emOrdem_arvBin(&((*raiz)->esq));
+    printf("%d\t", (*raiz)->info);
+    emOrdem_arvBin(&((*raiz)->dir));
+  }
+}
 
-    for(int i=0; i<10; i++){
-        insere_ArvBin(raiz, dados[i]);
+void posOrdem_arvBin(ArvBin *raiz){
+  if(raiz==NULL){
+      return;
+  }
+  if(*raiz!=NULL){
+    posOrdem_arvBin(&((*raiz)->esq));
+    posOrdem_arvBin(&((*raiz)->dir));
+    printf("%d\t", (*raiz)->info);
+  }
+}
+
+int consulta_ArvBin(ArvBin *raiz, int valor){
+    if(raiz == NULL){
+        return 0;
     }
-    preOrdem_ArvBin(raiz);
+    NO *atual = *raiz;//atual pega o primeiro NO (raiz)
 
+    while(atual != NULL){
+        if(valor == atual->info){
+            return 1;
+        }
+        if(valor>atual->info){
+            atual = atual->dir;
+        }else{
+            atual = atual->esq;
+        }
+    }
     return 0;
+}
+
+int totalNosArvBin(ArvBin *raiz){
+    if(raiz == NULL || *raiz == NULL){
+        return 0;
+    }
+    int qtd_dir = totalNosArvBin(&((*raiz)->dir));
+    int qtd_esq = totalNosArvBin(&((*raiz)->esq));
+    return (qtd_dir+qtd_esq+1);
+
+}
+
+int altura_ArvBin(ArvBin *raiz){
+    if(raiz == NULL || *raiz == NULL){
+        return -1;
+    }
+    int alt_dir = altura_ArvBin(&((*raiz)->dir));
+    int alt_esq = altura_ArvBin(&((*raiz)->esq));
+
+    if(alt_esq>alt_dir){
+        return alt_esq+1;
+    }else{
+        return alt_dir+1;
+    }
+}
+
+
+
+int main(void) {
+
+  ArvBin* raiz = cria_ArvBin();
+  int N = 10,dados[10] = {28,16,40,11,21,36,48,19,32,56};
+  for(int i=0;i<N;i++){
+    insere_ArvBin(raiz, dados[i]);
+  }
+
+  //libera_ArvBin(raiz);
+  int altura = altura_ArvBin(raiz);
+  printf("\nAltura: %d ",altura);
+  int quantidade = totalNosArvBin(raiz);
+  printf("\nQuantidade: %d ",quantidade);
+
+  printf("\nPréOrdem: ");
+  preOrdem_arvBin(raiz);
+  printf("\nEmOrdem: ");
+  emOrdem_arvBin(raiz);
+  printf("\nPosOrdem: ");
+  posOrdem_arvBin(raiz);
+  printf("\nFinalizou.\n");
+
+  //imprime_ArvBin(raiz);
+  return 0;
 }
