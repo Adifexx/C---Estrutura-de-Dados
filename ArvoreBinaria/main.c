@@ -186,6 +186,8 @@ int remove_ArvBin(ArvBin *raiz, int valor){
             }else{
                 if(ant->dir == atual){
                     ant->dir = remove_atual(atual);
+                }else{
+                    ant->esq = remove_atual(atual);
                 }
             }
             return 1;
