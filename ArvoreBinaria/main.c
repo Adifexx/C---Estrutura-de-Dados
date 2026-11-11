@@ -188,6 +188,7 @@ int remove_ArvBin(ArvBin *raiz, int valor){
                     ant->dir = remove_atual(atual);
                 }
             }
+            return 1;
         }
         ant = atual;
         if(valor > atual->info){
