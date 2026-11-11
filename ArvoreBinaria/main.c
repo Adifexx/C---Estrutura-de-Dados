@@ -138,6 +138,69 @@ int altura_ArvBin(ArvBin *raiz){
     }
 }
 
+void libera_NO(NO *no){
+    if(no == NULL){return;}
+    libera_NO(no->esq);
+    libera_NO(no->dir);
+    free(no);
+    no = NULL;
+}
+
+void libera_ArvBin(ArvBin *raiz){
+    if(raiz == NULL){return;}
+    libera_NO(*raiz);
+    free(raiz);
+}
+
+NO* remove_atual(NO *atual){
+    NO *no1, *no2;
+    if(atual->esq == NULL){
+        no2 = atual->dir;
+        free(atual);
+        return no2;
+    }
+    no1 = atual;
+    no2 = atual->esq;
+    while(no2->dir != NULL){
+        no1 = no2;
+        no2 = no2->dir;
+    }
+    if(no1 != atual){
+        no1->dir = no2->esq;
+        no2->esq = atual->esq;
+    }
+    no2->dir = atual->dir;
+    free(atual);
+    return no2;
+}
+
+int remove_ArvBin(ArvBin *raiz, int valor){
+    if(raiz == NULL){return 0;}
+    NO *ant = NULL;
+    NO *atual = *raiz;
+
+    while(atual != NULL){
+        if(valor == atual->info){//se o valor for encontrado
+            if(atual == *raiz){
+                *raiz = remove_atual(atual);
+            }else{
+                if(ant->dir == atual){
+                    ant->dir = remove_atual(atual);
+                }
+            }
+        }
+        ant = atual;
+        if(valor > atual->info){
+            atual = atual->dir;
+        }else{
+            atual = atual->esq;
+        }
+    }
+    return 0;
+
+
+}
+
 
 
 int main(void) {
