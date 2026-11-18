@@ -211,4 +211,8 @@ int consulta_ArvAVL(ArvAVL *raiz, int valor){
 
 int main(){
     ArvAVL *raiz = cria_ArvAVL();
+    insere_ArvAVL(raiz, 3);
+    insere_ArvAVL(raiz, 2);
+    insere_ArvAVL(raiz, 1);
+
 }
