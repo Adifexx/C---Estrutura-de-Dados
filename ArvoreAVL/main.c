@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "ArvoreAVL.h" //inclui os Protótipos
+//#include "ArvoreAVL.h" //inclui os ProtÃ³tipos
 
 typedef struct NO{
     int info;
@@ -99,7 +99,7 @@ int insere_ArvAVL(ArvAVL *raiz, int valor){
         }
     }else if(valor>atual->info){
         if((res = insere_ArvAVL(&(atual->dir), valor)) == 1){
-            if(fatorBalanceamento_NO(atual)>=2){
+            if(fatorBalanceamento_NO(atual)>=-2){
                 if(valor>(*raiz)->dir->info){
                     RotacaoRR(raiz);
                 }else{
@@ -135,7 +135,7 @@ void libera_NO(NO* no){
 void libera_ArvAVL(ArvAVL* raiz){
     if(raiz == NULL)
         return;
-    libera_NO(*raiz);//libera cada nó
+    libera_NO(*raiz);//libera cada nÃ³
     free(raiz);//libera a raiz
 }
 
