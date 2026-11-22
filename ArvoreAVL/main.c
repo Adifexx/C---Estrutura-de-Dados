@@ -59,7 +59,7 @@ void RotacaoRR(ArvAVL *A){
     (*A)->dir = B->esq;
     B->esq = *A;
     (*A)->altura = maior(altura_NO((*A)->esq), altura_NO((*A)->dir))+1;
-    B->altura = maior(altura_NO(B->esq), (*A)->altura)+1;
+    B->altura = maior(altura_NO(B->dir), (*A)->altura)+1;
     (*A) = B;
 }
 
