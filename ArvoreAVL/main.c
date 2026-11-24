@@ -69,8 +69,8 @@ void RotacaoLR(ArvAVL *A){
 }
 
 void RotacaoRL(ArvAVL *A){
-    RotacaoRR(&(*A)->dir);
-    RotacaoLL(A);
+    RotacaoLL(&(*A)->dir);
+    RotacaoRR(A);
 }
 
 int insere_ArvAVL(ArvAVL *raiz, int valor){
